@@ -14,19 +14,19 @@ export default function Projects() {
       title: 'Conseil stratégique',
       description:
         'Accompagnement d’une PME dans la définition de sa stratégie digitale et la mise en place d’outils collaboratifs.',
-      image: '/placeholder.png',
+      image: '/city.jpg',
     },
     {
       title: 'Série photographique',
       description:
         'Réalisation d’une série de photographies abstraites exposée dans une galerie parisienne en 2023.',
-      image: '/placeholder.png',
+      image: '/cloche.jpg',
     },
     {
       title: 'Application web',
       description:
         'Développement d’une application web pour la gestion de projets créatifs, avec une interface intuitive.',
-      image: '/placeholder.png',
+      image: '/tour.jpg',
     },
   ];
 

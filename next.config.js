@@ -6,10 +6,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // If deploying to GitHub Pages at a subpath, you may set the basePath and assetPrefix here.
-  // For example, if your repo name is "portfolio", uncomment and adjust:
-  // basePath: '/portfolio',
-  // assetPrefix: '/portfolio/',
+  // Set the base path and asset prefix for GitHub Pages deployment.
+  //basePath: '/front_sandbox_MUI',
+    basePath: process.env.NODE_ENV === 'production' ? '/front_sandbox_MUI' : '',
+    assetPrefix: process.env.NODE_ENV === 'production' ? '/front_sandbox_MUI' : '',
 };
 
 module.exports = nextConfig;
