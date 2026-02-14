@@ -1,6 +1,11 @@
 /**
  * Base path for assets (images, etc.) in production.
- * Must match the basePath in next.config.js for GitHub Pages deployment.
+ * Override via NEXT_PUBLIC_BASE_PATH; fallback matches next.config.js for GitHub Pages.
  */
-export const basePath =
+const defaultProductionPath =
   process.env.NODE_ENV === 'production' ? '/front_sandbox_MUI' : '';
+
+export const basePath =
+  (typeof process.env.NEXT_PUBLIC_BASE_PATH === 'string' &&
+    process.env.NEXT_PUBLIC_BASE_PATH) ||
+  defaultProductionPath;

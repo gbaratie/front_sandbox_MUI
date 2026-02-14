@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import { Button, TextField, Typography, Box, Alert } from '@mui/material';
-import Layout from '../components/Layout';
+import Layout from '@/components/Layout';
+import { siteName } from '@/config/site';
 
 /**
- * Contact page – provides a simple form for visitors to get in touch.
- * The form is not connected to a backend but captures input locally.
+ * Contact page – form for visitors (local state only, no backend).
  */
 export default function Contact() {
   const [name, setName] = useState('');
@@ -15,7 +15,6 @@ export default function Contact() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // For now, simply mark the form as submitted and reset fields.
     setSubmitted(true);
     setName('');
     setEmail('');
@@ -25,24 +24,30 @@ export default function Contact() {
   return (
     <Layout>
       <Head>
-        <title>Contact – Mon Portfolio</title>
+        <title>Contact – {siteName}</title>
         <meta
           name="description"
-          content="Envoyez-moi un message pour discuter de vos projets ou collaborations."
+          content={`Envoyez-moi un message pour discuter de vos projets ou collaborations.`}
         />
       </Head>
-      <Typography variant="h2" component="h2" gutterBottom>
+      <Typography variant="h2" component="h2" gutterBottom align="center">
         Me Contacter
       </Typography>
       {submitted && (
-        <Alert severity="success" sx={{ mb: 2 }}>
+        <Alert severity="success" sx={{ mb: 2, mx: 'auto', maxWidth: 600 }}>
           Merci pour votre message ! Je reviendrai vers vous rapidement.
         </Alert>
       )}
       <Box
         component="form"
         onSubmit={handleSubmit}
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 600 }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          maxWidth: 600,
+          mx: 'auto',
+        }}
       >
         <TextField
           label="Nom"
