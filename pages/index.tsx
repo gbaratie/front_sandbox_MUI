@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Box, Button, Typography, Grid } from '@mui/material';
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import { basePath } from '../lib/basePath';
 
 /**
  * Accueil page – introduces the consultant and artist.
@@ -13,7 +14,7 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>Accueil – Mon Portfolio</title>
+        <title>Accueil – Mon Portfolio </title>
         <meta
           name="description"
           content="Bienvenue sur mon portfolio. Découvrez mes projets de conseil et mes réalisations artistiques."
@@ -39,7 +40,7 @@ export default function Home() {
           {/* Placeholder image; replace with your own portrait or artwork in the public directory */}
           <Box sx={{ width: '100%', height: 0, paddingBottom: '75%', position: 'relative' }}>
             <Image
-              src="/homme-de-dos.jpg"
+              src={`${basePath}/homme-de-dos.jpg`}
               alt="Illustration"
               fill
               style={{ objectFit: 'cover', borderRadius: '8px' }}
