@@ -1,81 +1,90 @@
-# Portfolio de Consultant & Artiste
+# Starter Front – Next.js + MUI
 
-Ce projet est un site vitrine minimaliste construit avec **Next.js**, **React**, **TypeScript** et **Material‑UI (MUI)**.
-Il présente vos activités de conseil et vos réalisations artistiques au travers de trois pages : **Accueil**, **Projets** et **Contact**.
+Site vitrine type portfolio, prêt à servir de base pour vos projets front. Construit avec **Next.js 14**, **React 18**, **TypeScript** et **Material UI (MUI)**. Export statique possible pour GitHub Pages ou tout hébergement de fichiers statiques.
 
-## 🔧 Prérequis
-
-Assurez‑vous d’avoir installé **Node.js** (version 16 ou supérieure) et **npm** ou **yarn** sur votre machine.
-
-## 📦 Installation
-
-1. Clonez ce dépôt :
-   ```bash
-   git clone https://github.com/votre-utilisateur/consulting-portfolio.git
-   cd consulting-portfolio
-   ```
-2. Installez les dépendances :
-   ```bash
-   npm install
-   # ou avec yarn :
-   # yarn install
-   ```
-
-## 🚀 Lancement en développement
-
-Pour démarrer le serveur de développement avec rechargement à chaud :
+## Quick Start
 
 ```bash
+git clone https://github.com/gbaratie/front_sandbox_MUI.git
+cd front_sandbox_MUI
+npm install
+cp .env.example .env   # optionnel : personnaliser basePath et nom du site
 npm run dev
-# ou
-yarn dev
 ```
 
-Ouvrez ensuite votre navigateur à l’adresse `http://localhost:3000`.
-Les modifications de code s’actualisent automatiquement.
+Ouvrez [http://localhost:3000](http://localhost:3000).
 
-## 🛠 Construction et export statique
+## Scripts
 
-Ce site est conçu pour être exporté statiquement et hébergé sur **GitHub Pages** ou tout autre serveur statique.
-Pour générer la version de production et l’exporter :
+| Commande        | Description                    |
+|-----------------|--------------------------------|
+| `npm run dev`   | Serveur de développement       |
+| `npm run build` | Build de production + export dans `out/` |
+| `npm run start` | Servir le build (après `build`) |
+| `npm run lint`   | Vérification ESLint            |
+| `npm run deploy`| Build puis déploiement sur la branche `gh-pages` |
 
-```bash
-npm run build     # compile le site pour la production
-npm run export    # génère le dossier `out/` contenant les fichiers statiques
-# ou avec yarn :
-# yarn build && yarn export
+## Structure du projet
+
+```
+├── .github/workflows/   # CI/CD (déploiement GitHub Pages)
+├── components/         # Composants React réutilisables
+├── config/             # Configuration du site (titre, navigation)
+├── data/               # Données (ex. projets)
+├── lib/                # Utilitaires (basePath, etc.)
+├── pages/              # Pages Next.js
+├── public/             # Assets statiques (images)
+└── theme/              # Thème MUI
 ```
 
-Le dossier `out/` contient tout le contenu prêt à être déployé (HTML, CSS, JS et assets).
+## Personnalisation
 
-## 🌍 Déploiement sur GitHub Pages
+### Variables d’environnement
 
-1. **Activer GitHub Pages** : dans les paramètres de votre dépôt GitHub, activez GitHub Pages et choisissez la source `branch: main` et le dossier `/docs` ou configurez l’option **GitHub Actions** si vous souhaitez automatiser.
+Copiez `.env.example` en `.env` et ajustez si besoin :
 
-2. **Copier les fichiers exportés** : déplacez le contenu du dossier `out/` vers un dossier appelé `docs/` à la racine du dépôt (ou configurez le chemin selon vos préférences). Par exemple :
-   ```bash
-   rm -rf docs
-   cp -R out docs
-   git add docs
-   git commit -m "Déploiement statique"
-   git push origin main
-   ```
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_BASE_PATH` | Chemin de base en production (ex. `/front_sandbox_MUI` pour GitHub Pages). Vide = racine. |
+| `NEXT_PUBLIC_SITE_NAME` | Nom du site (header, titres de pages). |
 
-3. **Configurer le `basePath`** si nécessaire : si votre site est hébergé sur une sous‑URL (par ex. `https://votre-utilisateur.github.io/mon‑portfolio`), vous devrez renseigner `basePath` et `assetPrefix` dans `next.config.js`. Décommentez et ajustez les lignes suivantes :
+### Contenu et style
 
-```js
-// basePath: '/mon‑portfolio',
-// assetPrefix: '/mon‑portfolio/',
+- **Navigation** : `config/site.ts` (libellés et liens des onglets).
+- **Projets** : `data/projects.ts`.
+- **Thème** (couleurs, typo) : `theme/theme.ts`.
+- **Images** : déposer les fichiers dans `public/` et les référencer par leur chemin (ex. `/mon-image.jpg` ou avec `basePath` en prod).
+
+### Path aliases
+
+Les imports peuvent utiliser l’alias `@/` (racine du projet) :
+
+```ts
+import Layout from '@/components/Layout';
+import { siteName } from '@/config/site';
 ```
 
-4. Une fois le commit poussé, GitHub Pages publie automatiquement le contenu de votre site. L’URL de votre page sera visible dans les paramètres de votre dépôt.
+## Déploiement sur GitHub Pages
 
-## 🎨 Personnalisation
+Deux options.
 
-- **Images** : remplacez le fichier `public/placeholder.png` par vos propres images (portrait, projets, etc.).
-- **Contenu** : modifiez les textes dans `pages/index.tsx`, `pages/projects.tsx` et `pages/contact.tsx` pour refléter votre parcours et vos projets.
-- **Thème** : ajustez les couleurs et la typographie dans `theme/theme.ts` pour correspondre à votre identité visuelle.
+### Option 1 : GitHub Actions (recommandé)
 
-## 📝 Licence
+1. Dans le dépôt : **Settings → Pages → Source** : **GitHub Actions**.
+2. À chaque push sur `main`, le workflow `.github/workflows/deploy.yml` build le site et le déploie.
+3. Si le site est sous une sous-URL (ex. `https://user.github.io/front_sandbox_MUI`), définir `NEXT_PUBLIC_BASE_PATH=/front_sandbox_MUI` dans **Settings → Secrets and variables → Actions** (ou dans un fichier `.env` utilisé en CI), ou laisser la valeur par défaut déjà prévue dans le code.
 
-Ce projet est distribué sous licence MIT. Vous êtes libre de l’utiliser et de le modifier selon vos besoins.
+### Option 2 : Branche `gh-pages`
+
+1. **Settings → Pages → Source** : **Deploy from a branch**.
+2. **Branch** : `gh-pages`, dossier **/ (root)**.
+3. En local : `npm run deploy` (build + push du contenu de `out/` sur `gh-pages`).
+
+## Prérequis
+
+- Node.js 18+ (recommandé : 20)
+- npm (ou yarn)
+
+## Licence
+
+MIT.

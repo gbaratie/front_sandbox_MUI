@@ -1,61 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Tabs, Tab, Typography, Container } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { siteName, navItems } from '@/config/site';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
+function getTabValueFromPath(pathname: string): number {
+  const index = navItems.findIndex((item) => item.href === pathname);
+  return index >= 0 ? index : 0;
+}
+
 /**
- * The top‑level layout component that provides a persistent navigation bar.
- * It highlights the active page using the current route and wraps page content in a container.
+ * Top-level layout: persistent nav bar and container.
+ * Tab selection stays in sync with the current route.
  */
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
-  // Determine the current tab based on the pathname. Defaults to '/'.
-  const currentPath = router.pathname;
+  const [tabValue, setTabValue] = useState<number>(() =>
+    getTabValueFromPath(router.pathname)
+  );
 
-  const getValueFromPath = (path: string): number => {
-    switch (path) {
-      case '/':
-        return 0;
-      case '/projects':
-        return 1;
-      case '/contact':
-        return 2;
-      default:
-        return 0;
-    }
-  };
-
-  const [tabValue, setTabValue] = useState<number>(getValueFromPath(currentPath));
-
-  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
+  useEffect(() => {
+    setTabValue(getTabValueFromPath(router.pathname));
+  }, [router.pathname]);
 
   return (
     <>
       <AppBar position="fixed" color="primary" elevation={2}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Mon Portefeuille
+            {siteName}
           </Typography>
-          <Tabs value={tabValue} onChange={handleChange} textColor="inherit" indicatorColor="secondary">
-            <Link href="/" passHref legacyBehavior>
-              <Tab label="Accueil" component="a" />
-            </Link>
-            <Link href="/projects" passHref legacyBehavior>
-              <Tab label="Projets" component="a" />
-            </Link>
-            <Link href="/contact" passHref legacyBehavior>
-              <Tab label="Contact" component="a" />
-            </Link>
+          <Tabs
+            value={tabValue}
+            onChange={(_, newValue) => setTabValue(newValue)}
+            textColor="inherit"
+            indicatorColor="secondary"
+          >
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href} passHref legacyBehavior>
+                <Tab label={item.label} component="a" />
+              </Link>
+            ))}
           </Tabs>
         </Toolbar>
       </AppBar>
-      {/* Spacer toolbar to offset content because AppBar is fixed */}
       <Toolbar />
       <Container maxWidth="md" sx={{ paddingY: 4 }}>
         {children}

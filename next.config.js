@@ -6,10 +6,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Set the base path and asset prefix for GitHub Pages deployment.
-  //basePath: '/front_sandbox_MUI',
-    basePath: process.env.NODE_ENV === 'production' ? '/front_sandbox_MUI' : '',
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/front_sandbox_MUI' : '',
+  // Base path for GitHub Pages or subpath deployment (override via NEXT_PUBLIC_BASE_PATH).
+  basePath:
+    process.env.NEXT_PUBLIC_BASE_PATH ||
+    (process.env.NODE_ENV === 'production' ? '/front_sandbox_MUI' : ''),
+  assetPrefix:
+    process.env.NEXT_PUBLIC_BASE_PATH ||
+    (process.env.NODE_ENV === 'production' ? '/front_sandbox_MUI' : ''),
 };
 
 module.exports = nextConfig;

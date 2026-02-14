@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider, CssBaseline } from '@mui/material';
-import theme from '../theme/theme';
+import theme from '@/theme/theme';
 
 /**
  * Custom App component used by Next.js to initialize pages.
