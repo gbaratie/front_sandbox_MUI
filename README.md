@@ -87,4 +87,6 @@ Deux options.
 
 ## Licence
 
-MIT.
+Ce projet est distribué sous la [licence MIT](LICENSE). Vous êtes libre de l’utiliser, le modifier et le redistribuer sous réserve d’inclure la notice de copyright et le texte de la licence dans les copies.
+
+Les dépendances (Next.js, MUI, React, etc.) ont leurs propres licences, en général également permissives (MIT ou équivalent) ; voir `package.json` et les dépôts respectifs pour les détails.
