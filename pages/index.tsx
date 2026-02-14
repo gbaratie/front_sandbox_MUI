@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>Accueil – Mon Portfolio</title>
+        <title>Accueil – Mon Portfolio </title>
         <meta
           name="description"
           content="Bienvenue sur mon portfolio. Découvrez mes projets de conseil et mes réalisations artistiques."
