@@ -14,7 +14,7 @@ export default function Projects() {
   return (
     <Layout>
       <Head>
-        <title>Projets – {siteName}</title>
+        <title>{`Projets – ${siteName}`}</title>
         <meta
           name="description"
           content="Découvrez une sélection de mes projets de conseil et créations artistiques."

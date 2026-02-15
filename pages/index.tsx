@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>Accueil – {siteName}</title>
+        <title>{`Accueil – ${siteName}`}</title>
         <meta
           name="description"
           content={`Bienvenue sur ${siteName}. Découvrez mes projets de conseil et mes réalisations artistiques.`}

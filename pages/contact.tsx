@@ -24,7 +24,7 @@ export default function Contact() {
   return (
     <Layout>
       <Head>
-        <title>Contact – {siteName}</title>
+        <title>{`Contact – ${siteName}`}</title>
         <meta
           name="description"
           content={`Envoyez-moi un message pour discuter de vos projets ou collaborations.`}
